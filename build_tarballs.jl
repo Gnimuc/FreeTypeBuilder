@@ -1,6 +1,8 @@
 using BinaryBuilder
-
 # Collection of sources required to build FreeType2
+name = "FreeType2"
+version = v"2.9"
+
 sources = [
     "https://download.savannah.gnu.org/releases/freetype/freetype-2.9.tar.gz" =>
     "bf380e4d7c4f3b5b1c1a7b2bf3abb967bda5e9ab480d0df656e0e08c5019c5e6",
@@ -38,16 +40,7 @@ make install
 
 # These are the platforms we will build for by default, unless further
 # platforms are passed in on the command line
-platforms = [
-    BinaryProvider.Linux(:i686, :glibc),
-    BinaryProvider.Linux(:x86_64, :glibc),
-    BinaryProvider.Linux(:aarch64, :glibc),
-    BinaryProvider.Linux(:armv7l, :glibc),
-    BinaryProvider.Linux(:powerpc64le, :glibc),
-    BinaryProvider.MacOS(),
-    BinaryProvider.Windows(:i686),
-    BinaryProvider.Windows(:x86_64)
-]
+platforms = BinaryBuilder.supported_platforms()
 
 # The products that we will ensure are always built
 products(prefix) = [
@@ -60,4 +53,4 @@ dependencies = [
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
-build_tarballs(ARGS, "FreeType2", sources, script, platforms, products, dependencies)
+build_tarballs(ARGS, name, version, sources, script, platforms, products, dependencies)
