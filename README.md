@@ -1,6 +1,6 @@
 # FreeTypeBuilder
 
-[![Build Status](https://travis-ci.org/Gnimuc/L-BFGS-B-Builder.svg?branch=master)](https://travis-ci.org/Gnimuc/FreeTypeBuilder)
+[![Build Status](https://travis-ci.org/JuliaGraphics/FreeTypeBuilder.svg?branch=master)](https://travis-ci.org/JuliaGraphics/FreeTypeBuilder)
 
 This repository serves as a shared library builder for [FreeType2](https://www.freetype.org).
 It will automatically configure and build binaries via [BinaryBuilder.jl](https://github.com/JuliaPackaging/BinaryBuilder.jl) and [Travis CI](https://travis-ci.org).

@@ -1,18 +1,21 @@
+# Note that this script can accept some limited command-line arguments, run
+# `julia build_tarballs.jl --help` to see a usage message.
 using BinaryBuilder
-# Collection of sources required to build FreeType2
-name = "FreeType2"
-version = v"2.9"
 
+name = "FreeType2"
+version = v"2.9.1"
+
+# Collection of sources required to build FreeType2
 sources = [
-    "https://download.savannah.gnu.org/releases/freetype/freetype-2.9.tar.gz" =>
-    "bf380e4d7c4f3b5b1c1a7b2bf3abb967bda5e9ab480d0df656e0e08c5019c5e6",
+    "https://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.gz" =>
+    "ec391504e55498adceb30baceebd147a6e963f636eb617424bcfc47a169898ce",
 
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
-cd freetype-2.9/builds
+cd freetype-2.9.1/builds
 cat > exports.patch << 'END'
 --- exports.mk
 +++ exports.mk
