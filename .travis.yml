@@ -19,8 +19,8 @@ sudo: required
 
 # Before anything else, get the latest versions of things
 before_script:
-  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
-  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
+  - julia -e 'Pkg.add("BinaryProvider"); Pkg.pin("BinaryProvider", v"0.2.8")'
+  - julia -e 'Pkg.add("BinaryBuilder"); Pkg.pin("BinaryBuilder", v"0.0.2"); Pkg.build()'
 
 script:
   - julia build_tarballs.jl
@@ -32,5 +32,5 @@ deploy:
   file: products/*
   skip_cleanup: true
   on:
-    repo: Gnimuc/FreeTypeBuilder
+    repo: JuliaGraphics/FreeTypeBuilder
     tags: true
