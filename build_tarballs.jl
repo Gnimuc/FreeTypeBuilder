@@ -15,6 +15,9 @@ sources = [
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
+
+if [[ "${target}" == *mingw* ]]; then
+
 cd freetype-2.9.1/builds
 cat > exports.patch << 'END'
 --- exports.mk
@@ -36,6 +39,17 @@ patch --ignore-whitespace < exports.patch
 
 cd ..
 ./configure --prefix=$prefix --host=$target
+
+else
+
+cd freetype-2.9.1
+mkdir build && cd build
+CMAKE_FLAGS="-DCMAKE_INSTALL_PREFIX=${prefix} -DCMAKE_TOOLCHAIN_FILE=/opt/${target}/${target}.toolchain"
+CMAKE_FLAGS="${CMAKE_FLAGS} -DBUILD_SHARED_LIBS=true"
+cmake .. ${CMAKE_FLAGS}
+
+fi
+
 make -j${nproc}
 make install
 
@@ -43,7 +57,20 @@ make install
 
 # These are the platforms we will build for by default, unless further
 # platforms are passed in on the command line
-platforms = BinaryBuilder.supported_platforms()
+platforms = [
+    Linux(:i686, libc=:glibc),
+    Linux(:x86_64, libc=:glibc),
+    Linux(:aarch64, libc=:glibc),
+    Linux(:armv7l, libc=:glibc, call_abi=:eabihf),
+    Linux(:i686, libc=:musl),
+    Linux(:x86_64, libc=:musl),
+    Linux(:aarch64, libc=:musl),
+    Linux(:armv7l, libc=:musl, call_abi=:eabihf),
+    MacOS(:x86_64),
+    FreeBSD(:x86_64),
+    Windows(:i686),
+    Windows(:x86_64)
+]
 
 # The products that we will ensure are always built
 products(prefix) = [
