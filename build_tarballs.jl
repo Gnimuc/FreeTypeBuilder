@@ -66,6 +66,8 @@ products(prefix) = [
 
 # Dependencies that must be installed before this package can be built
 dependencies = [
+    "https://github.com/staticfloat/Bzip2Builder/releases/download/v1.0.6-1/build_Bzip2.v1.0.6.jl",
+    "https://github.com/bicycle1885/ZlibBuilder/releases/download/v1.0.4/build_Zlib.v1.2.11.jl"
 
 ]
 
